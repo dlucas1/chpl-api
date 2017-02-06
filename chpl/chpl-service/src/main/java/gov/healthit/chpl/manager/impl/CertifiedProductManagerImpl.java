@@ -1163,7 +1163,7 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ONC_STAFF')")
 	@Transactional(readOnly = false)
-	@CacheEvict(value = CacheNames.GET_DECERTIFIED_DEVELOPERS, allEntries=true)
+	@CacheEvict(value = {CacheNames.GET_DECERTIFIED_DEVELOPERS, CacheNames.SEARCH}, allEntries=true)
 	public MeaningfulUseUserResults updateMeaningfulUseUsers(Set<MeaningfulUseUser> meaningfulUseUserSet)
 			throws EntityCreationException, EntityRetrievalException, IOException {
 		MeaningfulUseUserResults meaningfulUseUserResults = new MeaningfulUseUserResults();
@@ -1171,7 +1171,7 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 		List<MeaningfulUseUser> results = new ArrayList<MeaningfulUseUser>();
 		
 		for(MeaningfulUseUser muu : meaningfulUseUserSet){
-			if(muu.getError() == null){
+			if(StringUtils.isEmpty(muu.getError())){
 				try{
 					// If bad input, add error for this MeaningfulUseUser and continue
 					if((muu.getProductNumber() == null || muu.getProductNumber().isEmpty())){
