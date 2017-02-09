@@ -167,7 +167,7 @@ public class CHPLTestConfig implements EnvironmentAware {
 	public EhCacheManagerFactoryBean ehCacheCacheManager() {
 		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
 		cmfb.setConfigLocation(new ClassPathResource("ehCache-test.xml"));
-		cmfb.setShared(true);
+		cmfb.setShared(false);
 		return cmfb;
 	}
 	

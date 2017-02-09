@@ -3,6 +3,7 @@ package gov.healthit.chpl.caching;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
@@ -13,10 +14,17 @@ import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import gov.healthit.chpl.dao.EntityRetrievalException;
+import gov.healthit.chpl.dao.search.CertifiedProductSearchDAO;
+import gov.healthit.chpl.domain.search.BasicSearchResponse;
+import gov.healthit.chpl.domain.search.CertifiedProductFlatSearchResult;
+import gov.healthit.chpl.manager.CertifiedProductSearchManager;
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 
 @Component
@@ -39,8 +47,12 @@ public class CacheInitializor {
 	private Future<Boolean> isInitializeDecertifiedDevelopers;
 	private Properties props;
 	private String enableCacheInitializationValue;
+	private Boolean refreshPreFetchedBasicSearchInProgress;
 	
 	@Autowired private AsynchronousCacheInitialization asynchronousCacheInitialization;
+	@Autowired private CacheEvictor aspectCacheEvictor;
+	@Autowired private CertifiedProductSearchDAO certifiedProductSearchDao;
+	@Autowired private CertifiedProductSearchManager certifiedProductSearchManager;
 
 	  @PostConstruct
 	  @Async
@@ -130,4 +142,42 @@ public class CacheInitializor {
 		}
 		tClearAllEnd = System.currentTimeMillis();
     }
+	
+//	@Transactional
+//	public BasicSearchResponse initializePreFetchedBasicSearch(){
+//		//if(refreshPreFetchedBasicSearchInProgress == null || refreshPreFetchedBasicSearchInProgress == false){
+//		  refreshPreFetchedBasicSearchInProgress = true;
+//		  logger.info("Executing CacheInitializor.initializePreFetchedBasicSearch().");
+//		  certifiedProductSearchDao.getAllCertifiedProducts();
+//		  refreshPreFetchedBasicSearchInProgress = false;
+//		  //CacheManager.getInstance().getCache(CacheNames.PRE_FETCHED_BASIC_SEARCH).;
+//		  Cache preFetchedBasicSearch = CacheManager.getInstance().getCache(CacheNames.PRE_FETCHED_BASIC_SEARCH);
+//		  CacheManager.getInstance().removeCache(CacheNames.BASIC_SEARCH);
+//		  CacheManager.getInstance().addCache(preFetchedBasicSearch);
+//		  // replace BASIC_SEARCH with PRE_FETCHED_BASIC_SEARCH
+//		  //CacheManager.getInstance().getCache(CacheNames.BASIC_SEARCH).replace(CacheManager.getInstance().getCache(CacheNames.PRE_FETCHED_BASIC_SEARCH).)
+//	//  }
+//		logger.info("Caching BASIC_SEARCH\nCalling CertifiedProductSearchDAO.getAllCertifiedProducts()");
+//		List<CertifiedProductFlatSearchResult> results = certifiedProductSearchDao.getAllCertifiedProducts();
+//		BasicSearchResponse response = new BasicSearchResponse();
+//		response.setResults(results);
+//		return response;
+//		
+//		
+//		
+//	}
+	
+	@Transactional
+	@Cacheable(value = CacheNames.PRE_FETCHED_BASIC_SEARCH)
+	public BasicSearchResponse initializePreFetchedBasicSearch(){
+		logger.debug("Initializing PreFetchedBasicSearch");
+		BasicSearchResponse response = new BasicSearchResponse();
+		//if(refreshPreFetchedBasicSearchInProgress == null || refreshPreFetchedBasicSearchInProgress == false){
+		refreshPreFetchedBasicSearchInProgress = true;
+		List<CertifiedProductFlatSearchResult> results = certifiedProductSearchDao.getAllCertifiedProducts();
+		refreshPreFetchedBasicSearchInProgress = false;
+		response.setResults(results);
+		//}
+		return response;
+	}
 }

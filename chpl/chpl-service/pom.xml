@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>4.3.6.RELEASE</version>
 		</dependency>
 	    
 	    <dependency>
@@ -106,14 +106,14 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.1.1.RELEASE</version>
+			<version>4.3.6.RELEASE</version>
 		</dependency>
 
 		<!-- Support for Ehcache and others -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>4.1.1.RELEASE</version>
+			<version>4.3.6.RELEASE</version>
 		</dependency>
 		
 		<dependency>

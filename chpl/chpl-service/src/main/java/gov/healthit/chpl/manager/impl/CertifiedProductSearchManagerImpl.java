@@ -3,6 +3,8 @@ package gov.healthit.chpl.manager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,8 @@ import gov.healthit.chpl.manager.CertifiedProductSearchManager;
 
 @Service
 public class CertifiedProductSearchManagerImpl implements CertifiedProductSearchManager {
-
+	private static final Logger logger = LogManager.getLogger(CertifiedProductSearchManagerImpl.class);
+	
 	@Autowired CertifiedProductSearchResultDAO certifiedProductSearchResultDAO;
 	@Autowired CertifiedProductSearchDAO basicCpSearchDao;
 	
@@ -30,6 +33,7 @@ public class CertifiedProductSearchManagerImpl implements CertifiedProductSearch
 	@Override
 	@Cacheable(CacheNames.BASIC_SEARCH)
 	public BasicSearchResponse search() {
+		logger.info("Caching BASIC_SEARCH\nCalling CertifiedProductSearchDAO.getAllCertifiedProducts()");
 		List<CertifiedProductFlatSearchResult> results = basicCpSearchDao.getAllCertifiedProducts();
 		BasicSearchResponse response = new BasicSearchResponse();
 		response.setResults(results);

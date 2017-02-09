@@ -109,7 +109,7 @@ public class CHPLConfig implements EnvironmentAware {
 		logger.info("get EhCacheManagerFactoryBean");
 		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
 		cmfb.setConfigLocation(new ClassPathResource("ehCache.xml"));
-		cmfb.setShared(true);
+		cmfb.setShared(false);
 		return cmfb;
 	}
 	

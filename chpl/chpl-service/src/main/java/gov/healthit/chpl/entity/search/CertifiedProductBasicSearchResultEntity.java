@@ -1,5 +1,6 @@
 package gov.healthit.chpl.entity.search;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "certified_product_search")
-public class CertifiedProductBasicSearchResultEntity {
+public class CertifiedProductBasicSearchResultEntity implements Serializable {
 	private static final long serialVersionUID = -2928065796550377869L;
 	
     @Id 

@@ -41,6 +41,7 @@ import gov.healthit.chpl.domain.search.BasicSearchResponse;
 import gov.healthit.chpl.entity.CertificationStatusType;
 import gov.healthit.chpl.manager.CertifiedProductDetailsManager;
 import gov.healthit.chpl.manager.CertifiedProductSearchManager;
+import gov.healthit.chpl.manager.ChplCacheManager;
 import gov.healthit.chpl.manager.DeveloperManager;
 import gov.healthit.chpl.manager.SearchMenuManager;
 import gov.healthit.chpl.web.controller.results.DecertifiedDeveloperResults;
@@ -68,6 +69,9 @@ public class SearchViewController {
 	@Autowired
 	private CertifiedProductSearchResultDAO certifiedProductSearchResultDao;
 	
+	@Autowired
+	private ChplCacheManager chplCacheManager;
+	
 	private static final Logger logger = LogManager.getLogger(SearchViewController.class);
 
 	@ApiOperation(value="Get basic data about all certified products in the system.", 
@@ -75,11 +79,10 @@ public class SearchViewController {
 	@RequestMapping(value="/certified_products", method=RequestMethod.GET,
 			produces="application/json; charset=utf-8")
 	public @ResponseBody BasicSearchResponse getAllCertifiedProducts() {
-		
-		BasicSearchResponse response = certifiedProductSearchManager.search();
+		logger.info("Calling ChplCacheManager.search() from SearchViewController");
+		BasicSearchResponse response = chplCacheManager.search();//certifiedProductSearchManager.search();
 		return response;
 	}
-	
 	
 	@ApiOperation(value="Get all data about a certified product.", 
 			notes="")

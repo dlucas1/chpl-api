@@ -1,6 +1,8 @@
 package gov.healthit.chpl.domain.search;
 
-public class CertifiedProductFlatSearchResult extends CertifiedProductSearchResult {
+import java.io.Serializable;
+
+public class CertifiedProductFlatSearchResult extends CertifiedProductSearchResult implements Serializable {
 	private static final long serialVersionUID = -2547390525592841044L;
 	
 	private String previousDevelopers; //unicode-char delimited string of developer names that owned the product
