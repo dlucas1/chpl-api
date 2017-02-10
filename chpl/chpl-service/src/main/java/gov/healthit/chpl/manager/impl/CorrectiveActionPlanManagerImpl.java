@@ -110,33 +110,39 @@ public class CorrectiveActionPlanManagerImpl implements CorrectiveActionPlanMana
 	}
 	
 	@Override
+	@Transactional
 	public CorrectiveActionPlanDTO getPlanById(Long capId) throws EntityRetrievalException {
 		return capDao.getById(capId);
 	}
 
 	@Override
+	@Transactional
 	public List<CorrectiveActionPlanDTO> getPlansForCertifiedProduct(Long certifiedProductId)
 			throws EntityRetrievalException {
 		return capDao.getAllForCertifiedProduct(certifiedProductId);
 	}
 
 	@Override
+	@Transactional
 	public List<CorrectiveActionPlanCertificationResultDTO> getCertificationsForPlan(Long capId)
 			throws EntityRetrievalException {
 		return capCertDao.getAllForCorrectiveActionPlan(capId);
 	}
 
 	@Override
+	@Transactional
 	public List<CorrectiveActionPlanDocumentationDTO> getDocumentationForPlan(Long capId)
 			throws EntityRetrievalException {
 		return capDocDao.getAllForCorrectiveActionPlan(capId);
 	}
 	
 	@Override
+	@Transactional
 	public CorrectiveActionPlanDocumentationDTO getDocumentationById(Long docId) throws EntityRetrievalException {
 		return capDocDao.getById(docId);
 	}
 	
+	@Transactional
 	public CorrectiveActionPlanDetails getPlanDetails(Long capId) throws EntityRetrievalException {
 		CorrectiveActionPlanDTO plan = capDao.getById(capId);
 		List<CorrectiveActionPlanCertificationResultDTO> planCerts = capCertDao.getAllForCorrectiveActionPlan(capId);
@@ -145,6 +151,7 @@ public class CorrectiveActionPlanManagerImpl implements CorrectiveActionPlanMana
 		return new CorrectiveActionPlanDetails(plan, planCerts, planDocs);
 	}
 	
+	@Transactional
 	public List<CorrectiveActionPlanDetails> getPlansForCertifiedProductDetails(Long certifiedProductId) 
 		throws EntityRetrievalException {
 		

@@ -76,7 +76,7 @@ public class CertificationIdManagerImpl implements CertificationIdManager {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(CacheNames.ALL_CERT_IDS)
+	@Cacheable(cacheNames = CacheNames.ALL_CERT_IDS, sync = true)
 	/**
 	 * Should be secured at controller level for ROLE_ADMIN || ROLE_ONC_STAFF || ROLE_CMS_STAFF
 	 */
@@ -91,7 +91,7 @@ public class CertificationIdManagerImpl implements CertificationIdManager {
 
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(CacheNames.ALL_CERT_IDS_WITH_PRODUCTS)
+	@Cacheable(cacheNames = CacheNames.ALL_CERT_IDS_WITH_PRODUCTS, sync = true)
 	/**
 	 * Should be secured at controller level for ROLE_ADMIN || ROLE_ONC_STAFF
 	 */

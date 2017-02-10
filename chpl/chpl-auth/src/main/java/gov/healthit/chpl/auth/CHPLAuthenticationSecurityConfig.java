@@ -186,7 +186,7 @@ public class CHPLAuthenticationSecurityConfig extends WebSecurityConfigurerAdapt
 	public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
 		logger.info("get EhCacheManagerFactoryBean");
 		EhCacheManagerFactoryBean bean = new EhCacheManagerFactoryBean();
-		bean.setShared(true);
+		bean.setShared(false);
 		return bean;
 	}
 
@@ -196,7 +196,6 @@ public class CHPLAuthenticationSecurityConfig extends WebSecurityConfigurerAdapt
 		EhCacheFactoryBean bean = new EhCacheFactoryBean();
 		bean.setCacheManager(ehCacheManagerFactoryBean().getObject());
 		bean.setCacheName("aclCache");
-
 		return bean;
 	}
 

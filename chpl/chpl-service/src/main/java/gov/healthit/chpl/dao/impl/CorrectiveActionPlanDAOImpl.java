@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import gov.healthit.chpl.auth.Util;
 import gov.healthit.chpl.dao.CorrectiveActionPlanDAO;
@@ -19,6 +20,7 @@ import gov.healthit.chpl.entity.CorrectiveActionPlanEntity;
 public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements CorrectiveActionPlanDAO {
 	
 	@Override
+	@Transactional
 	public CorrectiveActionPlanDTO create(CorrectiveActionPlanDTO toCreate) throws EntityCreationException,
 		EntityRetrievalException {
 		CorrectiveActionPlanEntity entity = null;
@@ -57,6 +59,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 	}
 
 	@Override
+	@Transactional
 	public CorrectiveActionPlanDTO update(CorrectiveActionPlanDTO toUpdate) throws EntityRetrievalException {
 		CorrectiveActionPlanEntity entity = getEntityById(toUpdate.getId());
 		if(entity == null) {
@@ -88,6 +91,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 	}
 	
 	@Override
+	@Transactional
 	public CorrectiveActionPlanDTO getById(Long id) throws EntityRetrievalException {
 		CorrectiveActionPlanDTO dto = null;
 		CorrectiveActionPlanEntity entity = getEntityById(id);
@@ -99,6 +103,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 
 
 	@Override
+	@Transactional
 	public List<CorrectiveActionPlanDTO> getAllForCertifiedProduct(Long certifiedProductId) {
 		List<CorrectiveActionPlanEntity> entities = getEntitiesByCertifiedProductId(certifiedProductId);
 		List<CorrectiveActionPlanDTO> dtos = new ArrayList<CorrectiveActionPlanDTO>();
@@ -111,6 +116,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) throws EntityRetrievalException {
 		CorrectiveActionPlanEntity entity = getEntityById(id);
 		entity.setDeleted(true);
@@ -119,6 +125,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 		update(entity);
 	}
 	
+	@Transactional
 	private void create(CorrectiveActionPlanEntity entity) {
 		
 		entityManager.persist(entity);
@@ -126,12 +133,14 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 		
 	}
 	
+	@Transactional
 	private void update(CorrectiveActionPlanEntity entity) {
 		
 		entityManager.merge(entity);	
 		entityManager.flush();
 	}
 	
+	@Transactional
 	public CorrectiveActionPlanEntity getEntityById(Long id) throws EntityRetrievalException {
 		
 		CorrectiveActionPlanEntity entity = null;
@@ -151,7 +160,7 @@ public class CorrectiveActionPlanDAOImpl extends BaseDAOImpl implements Correcti
 		return entity;
 	}
 	
-	
+	@Transactional
 	private List<CorrectiveActionPlanEntity> getEntitiesByCertifiedProductId(Long id) {
 		
 		Query query = entityManager.createQuery( "from CorrectiveActionPlanEntity where (NOT deleted = true) AND (certified_product_id = :certified_product_id) ", CorrectiveActionPlanEntity.class );

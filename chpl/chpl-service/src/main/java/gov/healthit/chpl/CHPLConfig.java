@@ -5,9 +5,6 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.castor.CastorMarshaller;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -96,21 +92,6 @@ public class CHPLConfig implements EnvironmentAware {
 	{
 		logger.info("get Marshaller");
 		return new CastorMarshaller();
-	}
-	
-	@Bean
-	public CacheManager cacheManager() {
-		logger.info("get CacheManager");
-		return new EhCacheCacheManager(ehCacheCacheManager().getObject());
-	}
-
-	@Bean
-	public EhCacheManagerFactoryBean ehCacheCacheManager() {
-		logger.info("get EhCacheManagerFactoryBean");
-		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
-		cmfb.setConfigLocation(new ClassPathResource("ehCache.xml"));
-		cmfb.setShared(false);
-		return cmfb;
 	}
 	
 }

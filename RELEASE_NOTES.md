@@ -1,5 +1,13 @@
 # Release Notes
 
+## Version TBD
+_Date TBD_
+
+### Changes
+* Add functionality to allow a "rolling cache" that refreshes the cache asynchronously while allowing the user to view currently available cached data
+
+---
+
 ## Verison 8.0.0
 _7 February 2017_
 

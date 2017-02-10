@@ -62,7 +62,7 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(CacheNames.ALL_DEVELOPERS)
+	@Cacheable(cacheNames = CacheNames.ALL_DEVELOPERS, sync = true)
 	public List<DeveloperDTO> getAll() {
 		List<DeveloperDTO> allDevelopers = developerDao.findAll();
 		List<DeveloperDTO> allDevelopersWithTransparencies = addTransparencyMappings(allDevelopers);
@@ -72,7 +72,7 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	@Override
 	@Transactional(readOnly = true)
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
-	@Cacheable(CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED)
+	@Cacheable(cacheNames = CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, sync = true)
 	public List<DeveloperDTO> getAllIncludingDeleted() {
 		List<DeveloperDTO> allDevelopers = developerDao.findAllIncludingDeleted();
 		List<DeveloperDTO> allDevelopersWithTransparencies = addTransparencyMappings(allDevelopers);
@@ -286,7 +286,7 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	}
 	
 	@Transactional(readOnly = true)
-	@Cacheable(CacheNames.GET_DECERTIFIED_DEVELOPERS)
+	@Cacheable(cacheNames = CacheNames.GET_DECERTIFIED_DEVELOPERS, sync = true)
 	public DecertifiedDeveloperResults getDecertifiedDevelopers() throws EntityRetrievalException{
 		DecertifiedDeveloperResults ddr = new DecertifiedDeveloperResults();
 		List<DecertifiedDeveloperDTO> dtoList = new ArrayList<DecertifiedDeveloperDTO>();
