@@ -10,7 +10,8 @@ keyLocation=C:\\CHPL\\keys\\JSONRsaJoseJWebKeyTest.txt
 
 testDbUser=openchpl
 testDbPassword=
-testDbServer=localhost/openchpl_test
+testDbServer=localhost
+testDbName=openchpl_test
 persistenceUnitName=openchpl-test
 authAclCacheName=aclCache
 questionableActivityEmail=test@email.com

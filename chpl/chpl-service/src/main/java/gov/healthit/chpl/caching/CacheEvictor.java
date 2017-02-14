@@ -26,6 +26,6 @@ public class CacheEvictor {
 		CacheManager manager = cacheUtil.getMyCacheManager();
 		logger.debug("Evicted " + CacheNames.PRE_FETCHED_BASIC_SEARCH);
 		preFetchedCaches.initializePreFetchedBasicSearch();
-		CacheReplacor.replaceCache(manager.getCache(CacheNames.BASIC_SEARCH), manager.getCache(CacheNames.PRE_FETCHED_BASIC_SEARCH));
+		CacheReplacer.replaceCache(manager.getCache(CacheNames.BASIC_SEARCH), manager.getCache(CacheNames.PRE_FETCHED_BASIC_SEARCH));
 	}
 }

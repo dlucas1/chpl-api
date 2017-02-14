@@ -9,7 +9,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 
 @Component
-public class CacheReplacor {
+public class CacheReplacer {
 	
 	/** Removes all keys from the oldCache and puts all keys from the newCache into the oldCache
 	 * 

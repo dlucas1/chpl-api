@@ -168,6 +168,7 @@ public class CHPLTestConfig implements EnvironmentAware, CachingConfigurer {
     	ds.setServerName(env.getRequiredProperty("testDbServer"));
         ds.setUser(env.getRequiredProperty("testDbUser"));
         ds.setPassword(env.getRequiredProperty("testDbPassword"));
+        ds.setDatabaseName(env.getRequiredProperty("testDbName"));
 		return ds;
 	}
 	

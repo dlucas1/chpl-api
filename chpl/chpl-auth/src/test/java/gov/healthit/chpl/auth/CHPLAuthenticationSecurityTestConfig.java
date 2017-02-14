@@ -2,13 +2,16 @@ package gov.healthit.chpl.auth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.ehcache.EhCacheFactoryBean;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,8 +31,9 @@ import org.springframework.security.acls.domain.EhCacheBasedAclCache;
 import org.springframework.security.acls.jdbc.BasicLookupStrategy;
 import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -57,9 +61,26 @@ public class CHPLAuthenticationSecurityTestConfig extends WebSecurityConfigurerA
 	}
 
 	@Bean
-	@Autowired
-	public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-		return auth.getOrBuild();
+	public GlobalAuthenticationConfigurerAdapter uniqueEnableGlobalAuthenticationAutowiredConfigurer(
+			ApplicationContext context) {
+		return new EnableGlobalAuthenticationAutowiredConfigurer(context);
+	}
+
+	private static class EnableGlobalAuthenticationAutowiredConfigurer extends GlobalAuthenticationConfigurerAdapter {
+		private final ApplicationContext context;
+		private static final Log logger = LogFactory.getLog(EnableGlobalAuthenticationAutowiredConfigurer.class);
+
+		public EnableGlobalAuthenticationAutowiredConfigurer(ApplicationContext context) {
+			this.context = context;
+		}
+
+		@Override
+		public void init(AuthenticationManagerBuilder auth) {
+			Map<String, Object> beansWithAnnotation = context.getBeansWithAnnotation(EnableGlobalAuthentication.class);
+			if (logger.isDebugEnabled()) {
+				logger.debug("Eagerly initializing " + beansWithAnnotation);
+			}
+		}
 	}
 
 	@Bean
@@ -68,6 +89,7 @@ public class CHPLAuthenticationSecurityTestConfig extends WebSecurityConfigurerA
 		ds.setServerName(env.getRequiredProperty("testDbServer"));
 		ds.setUser(env.getRequiredProperty("testDbUser"));
 		ds.setPassword(env.getRequiredProperty("testDbPassword"));
+		ds.setDatabaseName(env.getRequiredProperty("testDbName"));
 		return ds;
 	}
 
