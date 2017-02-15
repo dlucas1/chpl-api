@@ -2,16 +2,20 @@ package gov.healthit.chpl.auth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheFactoryBean;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,6 +39,8 @@ import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,6 +66,9 @@ public class CHPLAuthenticationSecurityConfig extends WebSecurityConfigurerAdapt
 	private static final Logger logger = LogManager.getLogger(CHPLAuthenticationSecurityConfig.class);
 
 	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
 	private JWTUserConverter userConverter;
 
 	private Environment env;
@@ -72,6 +81,39 @@ public class CHPLAuthenticationSecurityConfig extends WebSecurityConfigurerAdapt
 	public void setEnvironment(Environment env) {
 		logger.info("setEnvironment");
 		this.env = env;
+	}
+
+	@Bean
+	public GlobalAuthenticationConfigurerAdapter uniqueEnableGlobalAuthenticationAutowiredConfigurer(
+			ApplicationContext context) {
+		return new EnableGlobalAuthenticationAutowiredConfigurer(context);
+	}
+
+	private static class EnableGlobalAuthenticationAutowiredConfigurer extends GlobalAuthenticationConfigurerAdapter {
+		private final ApplicationContext context;
+		private static final Log logger = LogFactory.getLog(EnableGlobalAuthenticationAutowiredConfigurer.class);
+
+		public EnableGlobalAuthenticationAutowiredConfigurer(ApplicationContext context) {
+			this.context = context;
+		}
+
+		@Override
+		public void init(AuthenticationManagerBuilder auth) {
+			Map<String, Object> beansWithAnnotation = context.getBeansWithAnnotation(EnableGlobalAuthentication.class);
+			if (logger.isDebugEnabled()) {
+				logger.info("Eagerly initializing " + beansWithAnnotation);
+			}
+		}
+	}
+
+	@Autowired
+	public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+		logger.info("Build AuthenticationManager");
+		if (authenticationManager != null) {
+			return authenticationManager;
+		} else {
+			return auth.build();
+		}
 	}
 
 	@Bean
