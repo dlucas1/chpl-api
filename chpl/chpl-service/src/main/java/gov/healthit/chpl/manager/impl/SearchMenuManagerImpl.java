@@ -461,7 +461,7 @@ public class SearchMenuManagerImpl implements SearchMenuManager {
 	
 	@Transactional
 	@Override
-	@Cacheable(cacheNames = CacheNames.CERTIFICATION_CRITERION_WITH_EDITIONS, sync = true)
+	@Cacheable(CacheNames.CERTIFICATION_CRITERION_WITH_EDITIONS)
 	public Set<CertificationCriterion> getCertificationCriterion() {
 
 		List<CertificationCriterionDTO> dtos = this.certificationCriterionDAO.findAll();
@@ -477,7 +477,7 @@ public class SearchMenuManagerImpl implements SearchMenuManager {
 	
 	@Transactional
 	@Override
-	@Cacheable(cacheNames = CacheNames.CQM_CRITERION_NUMBERS, sync = true)
+	@Cacheable(CacheNames.CQM_CRITERION_NUMBERS)
 	public Set<DescriptiveModel> getCQMCriterionNumbers(Boolean simple){
 
 		List<CQMCriterionDTO> dtos = this.cqmCriterionDAO.findAll();

@@ -118,8 +118,7 @@ public class SurveillanceManagerImpl implements SurveillanceManager {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or "
 			+ "((hasRole('ROLE_ACB_STAFF') or hasRole('ROLE_ACB_ADMIN')) "
 			+ "and hasPermission(#acbId, 'gov.healthit.chpl.dto.CertificationBodyDTO', admin))")
-	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
-	@ClearBasicSearch
+	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	public Long createSurveillance(Long acbId, Surveillance surv) {
 		Long insertedId = null;
 		
@@ -156,8 +155,7 @@ public class SurveillanceManagerImpl implements SurveillanceManager {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or "
 			+ "((hasRole('ROLE_ACB_STAFF') or hasRole('ROLE_ACB_ADMIN')) "
 			+ "and hasPermission(#acbId, 'gov.healthit.chpl.dto.CertificationBodyDTO', admin))")
-	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
-	@ClearBasicSearch
+	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	public void updateSurveillance(Long acbId, Surveillance surv) {
 		try {
 			survDao.updateSurveillance(surv);
@@ -172,8 +170,7 @@ public class SurveillanceManagerImpl implements SurveillanceManager {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or "
 			+ "((hasRole('ROLE_ACB_STAFF') or hasRole('ROLE_ACB_ADMIN')) "
 			+ "and hasPermission(#acbId, 'gov.healthit.chpl.dto.CertificationBodyDTO', admin))")
-	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
-	@ClearBasicSearch
+	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	public void deleteSurveillance(Long acbId, Long survId) {		
 		Surveillance surv = new Surveillance();
 		surv.setId(survId);

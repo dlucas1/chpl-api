@@ -33,7 +33,7 @@ public class CertifiedProductSearchManagerImpl implements CertifiedProductSearch
 	
 	@Transactional(readOnly = true)
 	@Override
-	@Cacheable(cacheNames = CacheNames.BASIC_SEARCH, sync = true)
+	@Cacheable(CacheNames.BASIC_SEARCH)
 	public BasicSearchResponse search() {
 		logger.info("Caching BASIC_SEARCH. Calling CertifiedProductSearchDAO.getAllCertifiedProducts()");
 		List<CertifiedProductFlatSearchResult> results = basicCpSearchDao.getAllCertifiedProducts();

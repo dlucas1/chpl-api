@@ -109,8 +109,7 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
 	@Transactional(readOnly = false)
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
-			CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
-	@ClearBasicSearch
+			CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
 	public DeveloperDTO update(DeveloperDTO developer) throws EntityRetrievalException, JsonProcessingException, EntityCreationException {
 		
 		DeveloperDTO beforeDev = getById(developer.getId());
@@ -182,9 +181,8 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
 	@Transactional(readOnly = false)
-	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES}, 
-	allEntries=true)
-	@ClearBasicSearch
+	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
+			CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	public DeveloperDTO create(DeveloperDTO dto) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {
 		
 		DeveloperDTO created = developerDao.create(dto);
@@ -209,8 +207,7 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@Transactional(readOnly = false)
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
-			CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
-	@ClearBasicSearch
+			CacheNames.SEARCH, CacheNames.BASIC_SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
 	public DeveloperDTO merge(List<Long> developerIdsToMerge, DeveloperDTO developerToCreate) throws EntityRetrievalException, JsonProcessingException, EntityCreationException {
 		
 		List<DeveloperDTO> beforeDevelopers = new ArrayList<DeveloperDTO>();

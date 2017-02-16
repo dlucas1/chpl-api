@@ -5,6 +5,7 @@ _Date TBD_
 
 ### Changes
 * Add functionality to allow a "rolling cache" that refreshes the cache asynchronously while allowing the user to view currently available cached data
+* Add basic search API endpoint to return all certified products
 
 ---
 
