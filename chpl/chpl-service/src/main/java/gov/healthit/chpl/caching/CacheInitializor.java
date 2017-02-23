@@ -78,6 +78,13 @@ public class CacheInitializor {
 					isInitializeCertificationIdsGetAllDone = asynchronousCacheInitialization.initializeCertificationIdsGetAll();
 					isInitializeCertificationIdsGetAllWithProductsDone = asynchronousCacheInitialization.initializeCertificationIdsGetAllWithProducts();
 					isInitializeDecertifiedDevelopers = asynchronousCacheInitialization.initializeDecertifiedDevelopers();
+<<<<<<< HEAD
+=======
+					
+					if(isInitializeBasicSearch != null && !isInitializeBasicSearch.isDone()){
+						isInitializeBasicSearch.cancel(true);
+					}
+>>>>>>> upstream/development
 					isInitializeBasicSearch = asynchronousCacheInitialization.initializeBasicSearch();
 				  }
 			} catch (Exception e) {
@@ -114,7 +121,11 @@ public class CacheInitializor {
 			}
 			
 			if(isInitializeBasicSearch != null && !isInitializeBasicSearch.isDone()){
+<<<<<<< HEAD
 				isInitializeBasicSearch.cancel(true);
+=======
+								isInitializeBasicSearch.cancel(true);
+>>>>>>> upstream/development
 			}
 			
 			logger.info("Clearing all caches before @ClearAllCaches method execution.");

@@ -95,7 +95,11 @@ public class TestingLabManagerImpl extends ApplicationObjectSupport implements T
 	}
 	
 	@Transactional
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission(#atl, admin)")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission(#atl, admin)")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.SEARCH}, allEntries=true)
 	@ClearBasicSearch
 	public TestingLabDTO update(TestingLabDTO atl) throws EntityRetrievalException, JsonProcessingException, EntityCreationException, UpdateTestingLabException {

@@ -74,7 +74,11 @@ public class ProductVersionManagerImpl implements ProductVersionManager {
 	
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductVersionDTO create(ProductVersionDTO dto) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {
@@ -103,7 +107,11 @@ public class ProductVersionManagerImpl implements ProductVersionManager {
 
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductVersionDTO update(ProductVersionDTO dto) throws EntityRetrievalException, JsonProcessingException, EntityCreationException {
@@ -129,7 +137,11 @@ public class ProductVersionManagerImpl implements ProductVersionManager {
 	
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductVersionDTO merge(List<Long> versionIdsToMerge, ProductVersionDTO toCreate) throws EntityRetrievalException, JsonProcessingException, EntityCreationException {

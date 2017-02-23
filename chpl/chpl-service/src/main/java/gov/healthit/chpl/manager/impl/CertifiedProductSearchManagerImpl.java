@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import gov.healthit.chpl.caching.CacheNames;
+<<<<<<< HEAD
 import gov.healthit.chpl.caching.CacheUtil;
+=======
+import gov.healthit.chpl.caching.ClearBasicSearch;
+>>>>>>> upstream/development
 import gov.healthit.chpl.dao.CertifiedProductSearchResultDAO;
 import gov.healthit.chpl.dao.search.CertifiedProductSearchDAO;
 import gov.healthit.chpl.domain.CertifiedProductSearchResult;
@@ -33,7 +37,11 @@ public class CertifiedProductSearchManagerImpl implements CertifiedProductSearch
 	
 	@Transactional(readOnly = true)
 	@Override
+<<<<<<< HEAD
 	@Cacheable(cacheNames = CacheNames.BASIC_SEARCH, sync = true)
+=======
+	@Cacheable(CacheNames.BASIC_SEARCH)
+>>>>>>> upstream/development
 	public BasicSearchResponse search() {
 		logger.info("Caching BASIC_SEARCH. Calling CertifiedProductSearchDAO.getAllCertifiedProducts()");
 		List<CertifiedProductFlatSearchResult> results = basicCpSearchDao.getAllCertifiedProducts();

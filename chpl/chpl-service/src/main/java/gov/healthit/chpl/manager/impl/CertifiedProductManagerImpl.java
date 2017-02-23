@@ -289,7 +289,11 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 	@Override
 	@PreAuthorize("(hasRole('ROLE_ACB_STAFF') or hasRole('ROLE_ACB_ADMIN')) "
 			+ "and hasPermission(#acbId, 'gov.healthit.chpl.dto.CertificationBodyDTO', admin)")
+<<<<<<< HEAD
 	@Transactional(readOnly = false)
+=======
+	@Transactional(readOnly = false)
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, 
 			CacheNames.DEVELOPER_NAMES, CacheNames.PRODUCT_NAMES, CacheNames.SEARCH,
 			CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
@@ -803,7 +807,11 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 			+ "( (hasRole('ROLE_ACB_STAFF') or hasRole('ROLE_ACB_ADMIN'))"
 			+ "  and hasPermission(#acbId, 'gov.healthit.chpl.dto.CertificationBodyDTO', admin)"
 			+ ")")
+<<<<<<< HEAD
 	@Transactional(readOnly = false)
+=======
+	@Transactional(readOnly = false)
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.SEARCH, 
 			CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch

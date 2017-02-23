@@ -19,7 +19,11 @@ public class PreFetchedCaches {
 	@Autowired private CertifiedProductSearchDAO certifiedProductSearchDao;
 	
 	@Transactional
+<<<<<<< HEAD
 	@Cacheable(cacheNames = CacheNames.PRE_FETCHED_BASIC_SEARCH, sync = true)
+=======
+	@Cacheable(CacheNames.PRE_FETCHED_BASIC_SEARCH)
+>>>>>>> upstream/development
 	public BasicSearchResponse initializePreFetchedBasicSearch(){
 		logger.debug("Initializing PreFetchedBasicSearch");
 		BasicSearchResponse response = new BasicSearchResponse();

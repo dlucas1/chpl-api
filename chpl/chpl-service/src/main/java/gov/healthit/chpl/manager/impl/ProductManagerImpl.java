@@ -73,7 +73,11 @@ public class ProductManagerImpl implements ProductManager {
 	
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.PRODUCT_NAMES, CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductDTO create(ProductDTO dto) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {
@@ -101,7 +105,11 @@ public class ProductManagerImpl implements ProductManager {
 
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.PRODUCT_NAMES, CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductDTO update(ProductDTO dto, boolean lookForSuspiciousActivity) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {
@@ -139,7 +147,11 @@ public class ProductManagerImpl implements ProductManager {
 	
 	@Override
 	@Transactional(readOnly = false)
+<<<<<<< HEAD
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+=======
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.PRODUCT_NAMES, CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
 	@ClearBasicSearch
 	public ProductDTO merge(List<Long> productIdsToMerge, ProductDTO toCreate) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {

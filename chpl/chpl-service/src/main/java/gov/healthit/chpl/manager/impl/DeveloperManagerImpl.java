@@ -107,7 +107,11 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+<<<<<<< HEAD
 	@Transactional(readOnly = false)
+=======
+	@Transactional(readOnly = false)
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
 			CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
 	@ClearBasicSearch
@@ -181,9 +185,15 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ACB_ADMIN') or hasRole('ROLE_ACB_STAFF')")
+<<<<<<< HEAD
 	@Transactional(readOnly = false)
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES}, 
 	allEntries=true)
+=======
+	@Transactional(readOnly = false)
+	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
+			CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS}, allEntries=true)
+>>>>>>> upstream/development
 	@ClearBasicSearch
 	public DeveloperDTO create(DeveloperDTO dto) throws EntityRetrievalException, EntityCreationException, JsonProcessingException {
 		
@@ -207,7 +217,11 @@ public class DeveloperManagerImpl implements DeveloperManager {
 	
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+<<<<<<< HEAD
 	@Transactional(readOnly = false)
+=======
+	@Transactional(readOnly = false)
+>>>>>>> upstream/development
 	@CacheEvict(value = {CacheNames.ALL_DEVELOPERS, CacheNames.ALL_DEVELOPERS_INCLUDING_DELETED, CacheNames.DEVELOPER_NAMES, 
 			CacheNames.SEARCH, CacheNames.COUNT_MULTI_FILTER_SEARCH_RESULTS, CacheNames.GET_DECERTIFIED_DEVELOPERS}, allEntries=true)
 	@ClearBasicSearch

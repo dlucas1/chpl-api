@@ -46,6 +46,15 @@ public class AsynchronousCacheInitialization {
 	
 	@Async
 	@Transactional
+	public Future<Boolean> initializeBasicSearch() throws IOException, EntityRetrievalException, InterruptedException {
+		logger.info("Starting cache initialization for CertifiedProductSearchManager.search()");
+		certifiedProductSearchManager.search();
+		logger.info("Finished cache initialization for CertifiedProductSearchManager.search()");
+		return new AsyncResult<>(true);
+	}
+	
+	@Async
+	@Transactional
 	public Future<Boolean> initializeCertificationIdsGetAll() throws IOException, EntityRetrievalException, InterruptedException {
 		logger.info("Starting cache initialization for CertificationIdManager.getAll()");
 		certificationIdManager.getAll();

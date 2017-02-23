@@ -8,7 +8,11 @@
 	
 	<defaultCache
 		maxEntriesLocalHeap="10000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		timeToIdleSeconds="120"
 		timeToLiveSeconds="120"
 		maxEntriesLocalDisk="10000000"
@@ -21,7 +25,11 @@
 	<cache name="allCertIdsWithProducts"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -32,7 +40,11 @@
 	<cache name="allCertIds"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -45,7 +57,11 @@
 	<cache name="allDevelopers"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -56,7 +72,11 @@
 	<cache name="allDevelopersIncludingDeleted"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -67,7 +87,11 @@
 	<cache name="certBodyNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -78,7 +102,11 @@
 	<cache name="editionNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -89,7 +117,11 @@
 	<cache name="certificationStatuses"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -100,7 +132,11 @@
 	<cache name="practiceTypeNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -111,7 +147,11 @@
 	<cache name="classificationNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -122,7 +162,11 @@
 	<cache name="productNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -133,7 +177,11 @@
 	<cache name="developerNames"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -144,7 +192,11 @@
 	<cache name="macrameasures"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -155,7 +207,11 @@
 	<cache name="cqmCriterionNumbers"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -166,7 +222,11 @@
 	<cache name="certificationCriterionNumbers"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -177,7 +237,11 @@
 	<cache name="certificationCriterionWithEditions"
 		maxEntriesLocalHeap="1000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -190,7 +254,11 @@
 	<cache name="basicSearch"
 		maxEntriesLocalHeap="300000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -201,7 +269,11 @@
 	<cache name="preFetchedBasicSearch"
 		maxEntriesLocalHeap="300000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -212,7 +284,11 @@
 	<cache name="search"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -223,7 +299,11 @@
 	<cache name="countMultiFilterSearchResults"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
@@ -236,7 +316,11 @@
 	<cache name="getDecertifiedDevelopers"
 		maxEntriesLocalHeap="10000"
 		maxEntriesLocalDisk="10000000"
+<<<<<<< HEAD
 		eternal="true"
+=======
+		eternal="false"
+>>>>>>> upstream/development
 		diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="10800" timeToLiveSeconds="86400"
 		memoryStoreEvictionPolicy="LFU"
