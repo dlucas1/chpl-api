@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.Sid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -104,7 +105,7 @@ public class CertificationBodyManagerTest extends TestCase {
 
 		//add to the acb
 		CertificationBodyDTO acb = acbDao.getById(-3L);
-		UserDTO user = userDao.getById(1L);
+		UserDTO user = userDao.getById(-2L);
 		acbManager.deletePermission(acb, new PrincipalSid(user.getSubjectName()), BasePermission.ADMINISTRATION);
 		
 		//confirm one user is in the acb
