@@ -83,11 +83,11 @@ public class ParseActivities{
 	public List<ProductDTO> productDTOs;
 	private List<File> files;
 	private Integer totalNumSurvActivities;
-	private Integer numOpenSurvActivities;
-	private Integer numClosedSurvActivities;
+	private Integer totalNumOpenSurvActivities;
+	private Integer totalNumClosedSurvActivities;
 	private Integer totalNumNonConformities;
-	private Integer numOpenNonConformities;
-	private Integer numClosedNonConformities;
+	private Integer totalNumOpenNonConformities;
+	private Integer totalNumClosedNonConformities;
 	private Integer totalDevelopers;
 	private Integer totalProducts;
 	private Integer totalCPs;
@@ -518,11 +518,11 @@ public class ParseActivities{
 				 emailMessage.append("<li>Total 2014 CPs: " + this.totalCPs2014 + "</li>");
 				 emailMessage.append("<li>Total 2015 CPs: " + this.totalCPs2015 + "</li>");
 				 emailMessage.append("<li>Total Surveillance Activities: " + this.totalNumSurvActivities + "</li>");
-				 emailMessage.append("<li>Total Open Surveillance Activities: " + this.numOpenSurvActivities + "</li>");
-				 emailMessage.append("<li>Total Closed Surveillance Activities: " + this.numClosedSurvActivities + "</li>");
+				 emailMessage.append("<li>Total Open Surveillance Activities: " + this.totalNumOpenSurvActivities + "</li>");
+				 emailMessage.append("<li>Total Closed Surveillance Activities: " + this.totalNumClosedSurvActivities + "</li>");
 				 emailMessage.append("<li>Total Non-conformities: " + this.totalNumNonConformities + "</li>");
-				 emailMessage.append("<li>Total Open Non-conformities: " + this.numOpenNonConformities + "</li>");
-				 emailMessage.append("<li>Total Closed Non-conformities: " + this.numClosedNonConformities + "</li></ul>");
+				 emailMessage.append("<li>Total Open Non-conformities: " + this.totalNumOpenNonConformities + "</li>");
+				 emailMessage.append("<li>Total Closed Non-conformities: " + this.totalNumClosedNonConformities + "</li></ul>");
 		 email.setEmailMessage(emailMessage.toString());
 		 logger.info(emailMessage.toString());
 		 email.setProps(props);
@@ -577,11 +577,11 @@ public class ParseActivities{
 	 
 	private void updateCounts(){
 		this.totalNumSurvActivities = 0;
-		this.numOpenSurvActivities = 0;
-		this.numClosedSurvActivities = 0;
+		this.totalNumOpenSurvActivities = 0;
+		this.totalNumClosedSurvActivities = 0;
 		this.totalNumNonConformities = 0;
-		this.numOpenNonConformities = 0;
-		this.numClosedNonConformities = 0;
+		this.totalNumOpenNonConformities = 0;
+		this.totalNumClosedNonConformities = 0;
 		this.totalDevelopers = 0;
 		this.totalProducts = 0;
 		this.totalCPs = 0;
@@ -597,11 +597,11 @@ public class ParseActivities{
 			}
 			// Get aggregate count for   # of open surveillance activities
 			if(dto.getCountOpenSurveillance() > 0){
-				this.numOpenSurvActivities += dto.getCountOpenSurveillance();
+				this.totalNumOpenSurvActivities += dto.getCountOpenSurveillance();
 			}
 			// Get aggregate count for   # of closed surveillance activities
 			if(dto.getCountClosedSurveillance() > 0){
-				this.numClosedSurvActivities += dto.getCountClosedSurveillance();
+				this.totalNumClosedSurvActivities += dto.getCountClosedSurveillance();
 			}
 			// Get aggregate count for  total # of non-conformities
 			if((dto.getCountOpenNonconformities() + dto.getCountClosedNonconformities()) > 0){
@@ -609,11 +609,11 @@ public class ParseActivities{
 			}
 			// Get aggregate count for   # of open NCs
 			if(dto.getCountOpenNonconformities() > 0){
-				this.numOpenNonConformities += dto.getCountOpenNonconformities();
+				this.totalNumOpenNonConformities += dto.getCountOpenNonconformities();
 			}
 			// Get aggregate count for   # of closed NCs
 			if(dto.getCountClosedNonconformities() > 0){
-				this.numClosedNonConformities += dto.getCountClosedNonconformities();
+				this.totalNumClosedNonConformities += dto.getCountClosedNonconformities();
 			}
 		}
 		
