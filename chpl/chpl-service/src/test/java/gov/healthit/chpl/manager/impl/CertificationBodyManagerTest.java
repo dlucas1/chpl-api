@@ -105,7 +105,7 @@ public class CertificationBodyManagerTest extends TestCase {
 
 		//add to the acb
 		CertificationBodyDTO acb = acbDao.getById(-3L);
-		UserDTO user = userDao.getById(-2L);
+		UserDTO user = userDao.getById(1L);
 		acbManager.deletePermission(acb, new PrincipalSid(user.getSubjectName()), BasePermission.ADMINISTRATION);
 		
 		//confirm one user is in the acb
