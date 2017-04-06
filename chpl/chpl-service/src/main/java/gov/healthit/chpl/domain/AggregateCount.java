@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import gov.healthit.chpl.app.ReflectiveHelper;
+import gov.healthit.chpl.dto.CertifiedProductDetailsDTO;
 
 /** Description: Provides aggregate counts for objects
  * 
@@ -79,6 +80,38 @@ public class AggregateCount implements Serializable {
 					if((objectCreationDate.after(startDate) || objectCreationDate.equals(startDate)) 
 							&& (objectCreationDate.before(endDate) || objectCreationDate.equals(endDate))
 							&& (objectLastModifiedDate.after(endDate) || objectLastModifiedDate.equals(endDate))){
+						counter++;
+					}
+					else{
+						System.out.println("Does not meet either criteria");
+					}
+				}
+		}	
+		return counter;
+	}
+	
+	/**
+	 * Uses AggregateCount.objectList, a startDate & endDate, creationDateFieldName + lastModifiedDateFieldName, and deletionFieldName
+	 * to find the total number of a given field for the list of objects in the given time period
+	 * @param startDate
+	 * @param endDate
+	 * @param creationDateFieldName
+	 * @param lastModifiedDateFieldName
+	 * @param deletionFieldName
+	 * @return
+	 */
+	public Integer getCountDuringPeriodForCertifiedProduct(List<CertifiedProductDetailsDTO> cpDetails, Date startDate, Date endDate, String creationDateFieldName, String lastModifiedDateFieldName, String deletionFieldName){
+		Integer counter = 0;
+		for(CertifiedProductDetailsDTO dto : cpDetails){
+				if(dto.getProduct().getDeleted() == false){
+					if((dto.getCreationDate().after(startDate) || dto.getCreationDate().equals(startDate)) && (dto.getCreationDate().before(endDate) || dto.getCreationDate().equals(endDate))){
+						counter++;
+					}
+				}
+				else{
+					if((dto.getCreationDate().after(startDate) || dto.getCreationDate().equals(startDate)) 
+							&& (dto.getCreationDate().before(endDate) || dto.getCreationDate().equals(endDate))
+							&& (dto.getLastModifiedDate().after(endDate) || dto.getLastModifiedDate().equals(endDate))){
 						counter++;
 					}
 				}

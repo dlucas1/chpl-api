@@ -274,16 +274,32 @@ public class SurveillanceDaoTest extends TestCase {
 	@Test
 	@Transactional
 	public void testGetAllSurveillance() {
-		List<SurveillanceEntity> results = survDao.getAllSurveillance();
+		List<SurveillanceEntity> results = survDao.getAllSurveillance(false);
 		assertNotNull(results);
 		assertEquals(3, results.size());
 	}
 	
 	@Test
 	@Transactional
-	public void testGetAllSurveillanceNonConformities() {
-		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities();
+	public void testGetAllSurveillanceIncludingDeleted() {
+		List<SurveillanceEntity> results = survDao.getAllSurveillance(true);
 		assertNotNull(results);
 		assertEquals(4, results.size());
+	}
+	
+	@Test
+	@Transactional
+	public void testGetAllSurveillanceNonConformities() {
+		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities(false);
+		assertNotNull(results);
+		assertEquals(4, results.size());
+	}
+	
+	@Test
+	@Transactional
+	public void testGetAllSurveillanceNonConformitiesIncludingDeleted() {
+		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities(true);
+		assertNotNull(results);
+		assertEquals(5, results.size());
 	}
 }

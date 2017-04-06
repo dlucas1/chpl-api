@@ -462,18 +462,46 @@ public class SurveillanceDAOImpl extends BaseDAOImpl implements SurveillanceDAO 
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SurveillanceEntity> getAllSurveillance(){
-		Query query = entityManager.createQuery(
-				"from SurveillanceEntity where deleted <> true",
-				SurveillanceEntity.class);
+	public List<SurveillanceEntity> getAllSurveillance(Boolean hasDeleted){
+		Query query = null;
+		if(hasDeleted){
+			query = entityManager.createQuery(
+					"from SurveillanceEntity ",
+					SurveillanceEntity.class);
+		}
+		else{
+			query = entityManager.createQuery(
+					"from SurveillanceEntity where deleted <> true",
+					SurveillanceEntity.class);
+		}
+		
 		return query.getResultList();
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SurveillanceNonconformityEntity> getAllSurveillanceNonConformities(){
-		Query query = entityManager.createQuery(
-				"from SurveillanceNonconformityEntity where deleted <> true",
-				SurveillanceNonconformityEntity.class);
+	public List<SurveillanceEntity> getAllSurveillanceWithCPs(){
+		List<SurveillanceEntity> entities = entityManager.createQuery( 
+				  "FROM SurveillanceEntity surv"
+				+ "LEFT OUTER JOIN FETCH CertifiedProductEntity cp "
+				+ "LEFT OUTER JOIN FETCH SurveillanceRequirementEntity sr "
+				+ "LEFT OUTER JOIN FETCH SurveillanceNonConformityEntity snc", SurveillanceEntity.class).getResultList();
+		return entities;
+	}
+	
+	@Transactional(readOnly=true)
+	public List<SurveillanceNonconformityEntity> getAllSurveillanceNonConformities(Boolean hasDeleted){
+		Query query = null;
+		if(hasDeleted){
+			query = entityManager.createQuery(
+					"from SurveillanceNonconformityEntity ",
+					SurveillanceNonconformityEntity.class);
+		}
+		else {
+			query = entityManager.createQuery(
+					"from SurveillanceNonconformityEntity where deleted <> true",
+					SurveillanceNonconformityEntity.class);
+		}
+		
 		return query.getResultList();
 	}
 	

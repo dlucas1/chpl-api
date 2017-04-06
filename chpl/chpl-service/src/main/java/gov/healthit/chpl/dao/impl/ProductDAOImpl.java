@@ -326,11 +326,7 @@ public class ProductDAOImpl extends BaseDAOImpl implements ProductDAO {
 	}
 	
 	private List<ProductEntity> getAllEntitiesIncludingDeleted() {
-		List<ProductEntity> result = entityManager.createQuery( "from ProductEntity pe "
-				+ "LEFT OUTER JOIN FETCH pe.developer "
-				+ "LEFT OUTER JOIN FETCH pe.ownerHistory ",
-				ProductEntity.class).getResultList();
-		logger.debug("SQL call: List<ProductEntity> getAllEntities()");
+		List<ProductEntity> result = entityManager.createQuery( "from ProductEntity ", ProductEntity.class).getResultList();
 		return result;
 	}
 	

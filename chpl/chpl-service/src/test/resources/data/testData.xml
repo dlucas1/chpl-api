@@ -681,6 +681,9 @@
     <surveillance id = "-3" certified_product_id="11" friendly_id="SURV03" start_date="2016-04-06 12:43:00.015" end_date="2016-09-01 12:43:00.015" 
        type_id="1" creation_date="2016-04-06 12:42:00.000" last_modified_date="2016-10-06 12:42:00.000" 
        last_modified_user="-1" user_permission_id="2" deleted="FALSE" />
+    <surveillance id = "-4" certified_product_id="11" friendly_id="SURV04" start_date="2016-04-06 12:43:00.015" end_date="2016-09-01 12:43:00.015" 
+       type_id="1" creation_date="2016-04-06 12:42:00.000" last_modified_date="2016-10-06 12:42:00.000" 
+       last_modified_user="-1" user_permission_id="2" deleted="TRUE" />
         
     <surveillance_requirement id="-1" surveillance_id="-1" type_id="1" certification_criterion_id="61"
         result_id="1" creation_date="2016-04-06 12:42:00.000" last_modified_date="2016-10-06 12:42:00.000" last_modified_user="-1" 

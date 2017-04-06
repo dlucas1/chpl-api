@@ -31,7 +31,7 @@ public class SurveillanceEntity {
 	@Column(name = "friendly_id", insertable = false, updatable = false)
 	private String friendlyId;
 	
-	@Column(name = "certified_product_id")
+	@Column(name = "certified_product_id", insertable = false, updatable = false)
 	private Long certifiedProductId;
 	
 	@OneToOne(optional = true, fetch = FetchType.LAZY)

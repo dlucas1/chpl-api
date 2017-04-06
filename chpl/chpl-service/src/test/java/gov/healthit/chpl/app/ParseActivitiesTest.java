@@ -86,7 +86,7 @@ public class ParseActivitiesTest {
 		 parseActivities.setNumDaysInSummaryEmail(parseActivities.getNumDaysInSummaryEmail());
 		 parseActivities.setSummaryTimePeriod(parseActivities.getSummaryTimePeriod());
 		 parseActivities.developerDTOs = parseActivities.developerDAO.findAll();
-		 parseActivities.certifiedProductDTOs = parseActivities.certifiedProductDAO.findAll();
+		 //parseActivities.cpDetailsDTOs = parseActivities.certifiedProductDAO.findAll(true);
 		 parseActivities.productDTOs = parseActivities.productDAO.findAll();
 		 parseActivities.setCertifiedProductDetailsDTOs();
 		 parseActivities.activitiesList = parseActivities.getActivitiesByPeriodUsingStartAndEndDate();

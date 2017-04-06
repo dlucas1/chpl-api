@@ -32,6 +32,7 @@ import gov.healthit.chpl.domain.AggregateCount;
 import gov.healthit.chpl.dto.CertifiedProductDetailsDTO;
 import gov.healthit.chpl.dto.DeveloperDTO;
 import gov.healthit.chpl.dto.ProductDTO;
+import gov.healthit.chpl.entity.CertifiedProductEntity;
 import gov.healthit.chpl.entity.SurveillanceEntity;
 import gov.healthit.chpl.entity.SurveillanceNonconformityEntity;
 
@@ -69,10 +70,11 @@ public class ParseActivities{
 	private List<ActivitiesOutput> summaryActivitiesList;
 	private Table summaryOutputTable;
 	private TimePeriod summaryTimePeriod;
+	public List<CertifiedProductEntity> cpEntities;
 	public List<CertifiedProductDetailsDTO> certifiedProductDTOs_2014;
 	public List<CertifiedProductDetailsDTO> certifiedProductDTOs_2015;
 	public List<DeveloperDTO> developerDTOs;
-	public List<CertifiedProductDetailsDTO> certifiedProductDTOs;
+	public List<CertifiedProductDetailsDTO> cpDetailsDTOs;
 	public List<CertifiedProductDetailsDTO> certifiedProductDTOsWithSurv;
 	public List<SurveillanceEntity> surveillanceEntities;
 	public List<SurveillanceEntity> surveillanceOpenEntities;
@@ -83,11 +85,11 @@ public class ParseActivities{
 	public List<ProductDTO> productDTOs;
 	private List<File> files;
 	private Integer totalNumSurvActivities;
-	private Integer numOpenSurvActivities;
-	private Integer numClosedSurvActivities;
+	private Integer totalNumOpenSurvActivities;
+	private Integer totalNumClosedSurvActivities;
 	private Integer totalNumNonConformities;
-	private Integer numOpenNonConformities;
-	private Integer numClosedNonConformities;
+	private Integer totalNumOpenNonConformities;
+	private Integer totalNumClosedNonConformities;
 	private Integer totalDevelopers;
 	private Integer totalProducts;
 	private Integer totalCPs;
@@ -118,10 +120,10 @@ public class ParseActivities{
 		 parseActivities.setNumDaysInSummaryEmail(parseActivities.getNumDaysInSummaryEmail());
 		 parseActivities.setSummaryTimePeriod(parseActivities.getSummaryTimePeriod());
 		 parseActivities.developerDTOs = parseActivities.developerDAO.findAllIncludingDeleted();
-		 parseActivities.certifiedProductDTOs = parseActivities.certifiedProductDAO.findAll();
-		 parseActivities.surveillanceEntities = parseActivities.surveillanceDAO.getAllSurveillance();
-		 parseActivities.surveillanceNonConformityEntities = parseActivities.surveillanceDAO.getAllSurveillanceNonConformities();
-		 parseActivities.productDTOs = parseActivities.productDAO.findAllIncludingDeleted();
+		 parseActivities.surveillanceEntities = parseActivities.surveillanceDAO.getAllSurveillanceWithCPs();
+		 //parseActivities.surveillanceEntities = parseActivities.surveillanceDAO.getAllSurveillanceNonConformities(true);
+		 //parseActivities.surveillanceNonConformityEntities = parseActivities.surveillanceDAO.getAllSurveillanceNonConformities(true);
+		 //parseActivities.productDTOs = parseActivities.productDAO.findAllIncludingDeleted();
 		 parseActivities.updateSurveillanceEntities();
 		 parseActivities.setCertifiedProductDetailsDTOs();
 		 parseActivities.updateCounts();
@@ -167,7 +169,7 @@ public class ParseActivities{
 			 Integer totalProducts = productCount.getCountDuringPeriod(startDate, 
 					 summaryTimePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 // Get aggregate count for certified products
-			 AggregateCount certifiedProductCount = new AggregateCount(certifiedProductDTOs);
+			 AggregateCount certifiedProductCount = new AggregateCount(cpDetailsDTOs);
 			 Integer totalCertifiedProducts = certifiedProductCount.getCountDuringPeriodUsingField(startDate, 
 					 summaryTimePeriod.getEndDate(), "creationDate");
 			 // Get aggregate count for CPs_2014
@@ -227,7 +229,7 @@ public class ParseActivities{
 	 * Results are serialized (stored in order) in a linked list
 	 * @param developerDTOs
 	 * @param productDTOs
-	 * @param certifiedProductDTOs
+	 * @param cpDetailsDTOs
 	 * @param certifiedProductDTOs_2014
 	 * @param certifiedProductDTOs_2015
 	 * @return
@@ -249,32 +251,32 @@ public class ParseActivities{
 			 AggregateCount productCount = new AggregateCount(productDTOs);
 			 Integer totalProducts = productCount.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 // Get aggregate count for certified products
-			 AggregateCount certifiedProductCount = new AggregateCount(certifiedProductDTOs);
-			 Integer totalCertifiedProducts = certifiedProductCount.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 AggregateCount certifiedProductCount = new AggregateCount(cpDetailsDTOs);
+			 Integer totalCertifiedProducts = certifiedProductCount.getCountDuringPeriodForCertifiedProduct(cpDetailsDTOs, timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "product.deleted");
 			 // Get aggregate count for CPs_2014
 			 AggregateCount certifiedProductCount_2014 = new AggregateCount(certifiedProductDTOs_2014);
-			 Integer totalCertifiedProducts_2014 = certifiedProductCount_2014.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalCertifiedProducts_2014 = certifiedProductCount_2014.getCountDuringPeriodForCertifiedProduct(certifiedProductDTOs_2014, timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "product.deleted");
 			 // Get aggregate count for CPs_2015
 			 AggregateCount certifiedProductCount_2015 = new AggregateCount(certifiedProductDTOs_2015);
-			 Integer totalCertifiedProducts_2015 = certifiedProductCount_2015.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalCertifiedProducts_2015 = certifiedProductCount_2015.getCountDuringPeriodForCertifiedProduct(certifiedProductDTOs_2015, timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "product.deleted");
 			 
 			 AggregateCount survActs = new AggregateCount(this.surveillanceEntities);
-			 Integer totalSurvActs = survActs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalSurvActs = survActs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 AggregateCount survOpenActs = new AggregateCount(this.surveillanceOpenEntities);
-			 Integer totalSurvOpenActs = survOpenActs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalSurvOpenActs = survOpenActs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 AggregateCount survClosedActs = new AggregateCount(this.surveillanceClosedEntities);
-			 Integer totalSurvClosedActs = survClosedActs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalSurvClosedActs = survClosedActs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 AggregateCount ncs = new AggregateCount(this.surveillanceNonConformityEntities);
-			 Integer totalNcs = ncs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalNcs = ncs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 AggregateCount openNcs = new AggregateCount(this.surveillanceOpenNonConformityEntities);
-			 Integer totalOpenNcs = openNcs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalOpenNcs = openNcs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 AggregateCount closedNcs = new AggregateCount(this.surveillanceClosedNonConformityEntities);
-			 Integer totalClosedNcs = closedNcs.getCountDuringPeriodUsingField(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate");
+			 Integer totalClosedNcs = closedNcs.getCountDuringPeriod(timePeriod.getStartDate(), timePeriod.getEndDate(), "creationDate", "lastModifiedDate", "deleted");
 			 
 			 SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy");
 			 dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -480,7 +482,7 @@ public class ParseActivities{
 	public void setCertifiedProductDetailsDTOs(){
 		certifiedProductDTOs_2014 = new ArrayList<CertifiedProductDetailsDTO>();
 		certifiedProductDTOs_2015 = new ArrayList<CertifiedProductDetailsDTO>();
-		for(CertifiedProductDetailsDTO dto : certifiedProductDTOs){
+		for(CertifiedProductDetailsDTO dto : cpDetailsDTOs){
 			 if(dto.getYear().equals("2014")){
 				 certifiedProductDTOs_2014.add(dto);
 			 }
@@ -518,11 +520,11 @@ public class ParseActivities{
 				 emailMessage.append("<li>Total 2014 CPs: " + this.totalCPs2014 + "</li>");
 				 emailMessage.append("<li>Total 2015 CPs: " + this.totalCPs2015 + "</li>");
 				 emailMessage.append("<li>Total Surveillance Activities: " + this.totalNumSurvActivities + "</li>");
-				 emailMessage.append("<li>Total Open Surveillance Activities: " + this.numOpenSurvActivities + "</li>");
-				 emailMessage.append("<li>Total Closed Surveillance Activities: " + this.numClosedSurvActivities + "</li>");
+				 emailMessage.append("<li>Total Open Surveillance Activities: " + this.totalNumOpenSurvActivities + "</li>");
+				 emailMessage.append("<li>Total Closed Surveillance Activities: " + this.totalNumClosedSurvActivities + "</li>");
 				 emailMessage.append("<li>Total Non-conformities: " + this.totalNumNonConformities + "</li>");
-				 emailMessage.append("<li>Total Open Non-conformities: " + this.numOpenNonConformities + "</li>");
-				 emailMessage.append("<li>Total Closed Non-conformities: " + this.numClosedNonConformities + "</li></ul>");
+				 emailMessage.append("<li>Total Open Non-conformities: " + this.totalNumOpenNonConformities + "</li>");
+				 emailMessage.append("<li>Total Closed Non-conformities: " + this.totalNumClosedNonConformities + "</li></ul>");
 		 email.setEmailMessage(emailMessage.toString());
 		 logger.info(emailMessage.toString());
 		 email.setProps(props);
@@ -577,31 +579,34 @@ public class ParseActivities{
 	 
 	private void updateCounts(){
 		this.totalNumSurvActivities = 0;
-		this.numOpenSurvActivities = 0;
-		this.numClosedSurvActivities = 0;
+		this.totalNumOpenSurvActivities = 0;
+		this.totalNumClosedSurvActivities = 0;
 		this.totalNumNonConformities = 0;
-		this.numOpenNonConformities = 0;
-		this.numClosedNonConformities = 0;
+		this.totalNumOpenNonConformities = 0;
+		this.totalNumClosedNonConformities = 0;
 		this.totalDevelopers = 0;
 		this.totalProducts = 0;
 		this.totalCPs = 0;
 		this.totalCPs2014 = 0;
 		this.totalCPs2015 = 0;
-		if(this.certifiedProductDTOsWithSurv == null){
-			this.certifiedProductDTOsWithSurv = certifiedProductDAO.findAll();
-		}
-		for(CertifiedProductDetailsDTO dto : certifiedProductDTOsWithSurv){
+//		if(this.certifiedProductDTOsWithSurv == null){
+//			this.certifiedProductDTOsWithSurv = certifiedProductDAO.findAll(true);
+//		}
+		for(CertifiedProductDetailsDTO dto : cpDetailsDTOs){
 			// Get aggregate count for total # of surveillance activities
 			if(dto.getCountSurveillance() > 0){
 				this.totalNumSurvActivities += dto.getCountSurveillance();
 			}
+			else{
+				System.out.println("getCountSurveillance must be > 0 but is " + dto.getCountSurveillance());
+			}
 			// Get aggregate count for   # of open surveillance activities
 			if(dto.getCountOpenSurveillance() > 0){
-				this.numOpenSurvActivities += dto.getCountOpenSurveillance();
+				this.totalNumOpenSurvActivities += dto.getCountOpenSurveillance();
 			}
 			// Get aggregate count for   # of closed surveillance activities
 			if(dto.getCountClosedSurveillance() > 0){
-				this.numClosedSurvActivities += dto.getCountClosedSurveillance();
+				this.totalNumClosedSurvActivities += dto.getCountClosedSurveillance();
 			}
 			// Get aggregate count for  total # of non-conformities
 			if((dto.getCountOpenNonconformities() + dto.getCountClosedNonconformities()) > 0){
@@ -609,17 +614,20 @@ public class ParseActivities{
 			}
 			// Get aggregate count for   # of open NCs
 			if(dto.getCountOpenNonconformities() > 0){
-				this.numOpenNonConformities += dto.getCountOpenNonconformities();
+				this.totalNumOpenNonConformities += dto.getCountOpenNonconformities();
 			}
 			// Get aggregate count for   # of closed NCs
 			if(dto.getCountClosedNonconformities() > 0){
-				this.numClosedNonConformities += dto.getCountClosedNonconformities();
+				this.totalNumClosedNonConformities += dto.getCountClosedNonconformities();
 			}
 		}
 		
 		 for(DeveloperDTO dto : developerDTOs){
 			 if(dto.getCreationDate().before(summaryTimePeriod.getEndDate())){
 				 totalDevelopers++;
+			 }
+			 else{
+				 System.out.println("Developer creationDate of " + dto.getCreationDate() + " is after summaryTimePeriod end date of " + summaryTimePeriod.getEndDate());
 			 }
 		 }
 		 
@@ -629,7 +637,7 @@ public class ParseActivities{
 			 }
 		 }
 		 
-		 for(CertifiedProductDetailsDTO dto : certifiedProductDTOs){
+		 for(CertifiedProductDetailsDTO dto : cpDetailsDTOs){
 			 if(dto.getCreationDate().before(summaryTimePeriod.getEndDate())){
 				 this.totalCPs++;
 			 }
@@ -651,13 +659,13 @@ public class ParseActivities{
 	private void updateSurveillanceEntities(){
 		surveillanceOpenEntities = new ArrayList<SurveillanceEntity>();
 		surveillanceClosedEntities = new ArrayList<SurveillanceEntity>();
-		for(SurveillanceEntity entity : surveillanceEntities){
-			if(entity.getSurveillanceTypeId() == 1){
-				surveillanceOpenEntities.add(entity);
-			}
-			else if(entity.getSurveillanceTypeId() == 2){
-				surveillanceClosedEntities.add(entity);
-			}
+		for(CertifiedProductEntity entity : this.cpEntities){
+//			if(entity. getSurveillanceTypeId() == 1){
+//				surveillanceOpenEntities.add(dto);
+//			}
+//			else if(dto.getSurveillanceTypeId() == 2){
+//				surveillanceClosedEntities.add(dto);
+//			}
 		}
 		
 		surveillanceOpenNonConformityEntities = new ArrayList<SurveillanceNonconformityEntity>();

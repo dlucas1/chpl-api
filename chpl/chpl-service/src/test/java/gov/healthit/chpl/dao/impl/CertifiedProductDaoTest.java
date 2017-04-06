@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.BeforeClass;
@@ -35,6 +36,11 @@ import gov.healthit.chpl.dao.CertifiedProductDAO;
 import gov.healthit.chpl.dao.EntityRetrievalException;
 import gov.healthit.chpl.dto.CertifiedProductDTO;
 import gov.healthit.chpl.dto.CertifiedProductDetailsDTO;
+import gov.healthit.chpl.entity.CertificationEditionEntity;
+import gov.healthit.chpl.entity.CertifiedProductStatisticsEntity;
+import gov.healthit.chpl.entity.SurveillanceEntity;
+import gov.healthit.chpl.entity.SurveillanceNonconformityEntity;
+import gov.healthit.chpl.entity.SurveillanceRequirementEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = gov.healthit.chpl.CHPLTestConfig.class)
@@ -93,6 +99,44 @@ public class CertifiedProductDaoTest {
 		}
 		assertNotNull(product);
 		assertEquals(1, product.getId().longValue());
+	}
+	
+	@Test
+	@Transactional(readOnly = true)
+	public void getAllCPsWithSurveillanceDetails() {
+		List<CertifiedProductStatisticsEntity> cpStats = productDao.getAllCPsWithSurveillanceDetails();
+		Integer total2014CPs = 0;
+		Integer total2015CPs = 0;
+		Integer totalSurvs = 0;
+		Integer totalOpenSurvs = 0;
+		Integer totalClosedSurvs = 0;
+		Integer totalNcs = 0;
+		Integer totalOpenNcs = 0;
+		Integer totalClosedNcs = 0;
+		
+		for(CertifiedProductStatisticsEntity entity : cpStats){
+			CertificationEditionEntity ce = entity.getCertificationEditionEntity();
+			if(ce.getYear() == "2014"){
+				total2014CPs++;
+			}
+			else if(ce.getYear() == "2015"){
+				total2015CPs++;
+			}
+//			Set<SurveillanceEntity> survEntities = entity.getSurveillanceEntity();
+//			for(SurveillanceEntity survE : survEntities){
+//				Set<SurveillanceRequirementEntity> survReqs = survE.getSurveilledRequirements();
+//				for(SurveillanceRequirementEntity survReq : survReqs){
+//					Set<SurveillanceNonconformityEntity> ncs = survReq.getNonconformities();
+//					for(SurveillanceNonconformityEntity nc : ncs){
+//						if(nc.)
+//					}
+//				}
+//			}
+			
+		}
+		assertTrue(total2014CPs == 5);
+		assertTrue(total2015CPs == 6);
+		assertTrue(cpStats.size() == 17);
 	}
 	
 	@Test
