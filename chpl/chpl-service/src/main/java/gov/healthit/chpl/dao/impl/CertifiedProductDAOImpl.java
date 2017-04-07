@@ -18,8 +18,6 @@ import gov.healthit.chpl.dto.CertifiedProductDTO;
 import gov.healthit.chpl.dto.CertifiedProductDetailsDTO;
 import gov.healthit.chpl.entity.CertifiedProductDetailsEntity;
 import gov.healthit.chpl.entity.CertifiedProductEntity;
-import gov.healthit.chpl.entity.CertifiedProductStatisticsEntity;
-import gov.healthit.chpl.entity.SurveillanceEntity;
 
 @Repository(value="certifiedProductDAO")
 public class CertifiedProductDAOImpl extends BaseDAOImpl implements CertifiedProductDAO {
@@ -215,17 +213,6 @@ public class CertifiedProductDAOImpl extends BaseDAOImpl implements CertifiedPro
 		}
 		return products;
 		
-	}
-	
-	@Transactional(readOnly=true)
-	public List<CertifiedProductStatisticsEntity> getAllCPsWithSurveillanceDetails(){
-		List<CertifiedProductStatisticsEntity> entities = entityManager.createQuery( 
-				  "FROM CertifiedProductStatisticsEntity cp ", CertifiedProductStatisticsEntity.class).getResultList();
-//				+ "LEFT OUTER JOIN FETCH cp.surveillanceEntity s "
-//				+ "LEFT OUTER JOIN FETCH s.surveilledRequirements sr "
-//				+ "LEFT OUTER JOIN FETCH sr.nonconformities nc "
-//				+ "LEFT OUTER JOIN FETCH cp.certificationEditionEntity ", CertifiedProductStatisticsEntity.class).getResultList();
-		return entities;
 	}
 	
 	@Transactional(readOnly=true)

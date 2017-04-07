@@ -44,7 +44,6 @@ public interface SurveillanceDAO {
 	public List<SurveillanceNonconformityStatus> getAllSurveillanceNonconformityStatusTypes();
 	public SurveillanceNonconformityStatus findSurveillanceNonconformityStatusType(String type);
 	public SurveillanceNonconformityStatus findSurveillanceNonconformityStatusType(Long id);
-	public List<SurveillanceEntity> getAllSurveillance(Boolean hasDeleted);
-	public List<SurveillanceNonconformityEntity> getAllSurveillanceNonConformities(Boolean hasDeleted);
-	public List<SurveillanceEntity> getAllSurveillanceWithCPs();
+	public List<SurveillanceEntity> getAllSurveillance();
+	public List<SurveillanceNonconformityEntity> getAllSurveillanceNonConformities();
 }

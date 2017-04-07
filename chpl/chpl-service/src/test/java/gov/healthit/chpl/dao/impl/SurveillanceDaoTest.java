@@ -274,7 +274,7 @@ public class SurveillanceDaoTest extends TestCase {
 	@Test
 	@Transactional
 	public void testGetAllSurveillance() {
-		List<SurveillanceEntity> results = survDao.getAllSurveillance(false);
+		List<SurveillanceEntity> results = survDao.getAllSurveillance();
 		assertNotNull(results);
 		assertEquals(3, results.size());
 	}
@@ -282,7 +282,7 @@ public class SurveillanceDaoTest extends TestCase {
 	@Test
 	@Transactional
 	public void testGetAllSurveillanceIncludingDeleted() {
-		List<SurveillanceEntity> results = survDao.getAllSurveillance(true);
+		List<SurveillanceEntity> results = survDao.getAllSurveillance();
 		assertNotNull(results);
 		assertEquals(4, results.size());
 	}
@@ -290,7 +290,7 @@ public class SurveillanceDaoTest extends TestCase {
 	@Test
 	@Transactional
 	public void testGetAllSurveillanceNonConformities() {
-		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities(false);
+		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities();
 		assertNotNull(results);
 		assertEquals(4, results.size());
 	}
@@ -298,7 +298,7 @@ public class SurveillanceDaoTest extends TestCase {
 	@Test
 	@Transactional
 	public void testGetAllSurveillanceNonConformitiesIncludingDeleted() {
-		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities(true);
+		List<SurveillanceNonconformityEntity> results = survDao.getAllSurveillanceNonConformities();
 		assertNotNull(results);
 		assertEquals(5, results.size());
 	}

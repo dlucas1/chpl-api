@@ -120,7 +120,6 @@ public class ParseActivities{
 		 parseActivities.setNumDaysInSummaryEmail(parseActivities.getNumDaysInSummaryEmail());
 		 parseActivities.setSummaryTimePeriod(parseActivities.getSummaryTimePeriod());
 		 parseActivities.developerDTOs = parseActivities.developerDAO.findAllIncludingDeleted();
-		 parseActivities.surveillanceEntities = parseActivities.surveillanceDAO.getAllSurveillanceWithCPs();
 		 //parseActivities.surveillanceEntities = parseActivities.surveillanceDAO.getAllSurveillanceNonConformities(true);
 		 //parseActivities.surveillanceNonConformityEntities = parseActivities.surveillanceDAO.getAllSurveillanceNonConformities(true);
 		 //parseActivities.productDTOs = parseActivities.productDAO.findAllIncludingDeleted();

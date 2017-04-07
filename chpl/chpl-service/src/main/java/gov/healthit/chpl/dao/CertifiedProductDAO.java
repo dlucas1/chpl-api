@@ -5,7 +5,6 @@ import java.util.List;
 
 import gov.healthit.chpl.dto.CertifiedProductDTO;
 import gov.healthit.chpl.dto.CertifiedProductDetailsDTO;
-import gov.healthit.chpl.entity.CertifiedProductStatisticsEntity;
 
 public interface CertifiedProductDAO {
 	
@@ -20,7 +19,6 @@ public interface CertifiedProductDAO {
 	public List<CertifiedProductDetailsDTO> findAll();
 	public List<CertifiedProductDetailsDTO> findWithSurveillance();
 	
-	public List<CertifiedProductStatisticsEntity> getAllCPsWithSurveillanceDetails();
 	public CertifiedProductDTO getById(Long productId) throws EntityRetrievalException;
 	public CertifiedProductDetailsDTO getDetailsById(Long productId) throws EntityRetrievalException;
 	public List<CertifiedProductDetailsDTO> getDetailsByIds(List<Long> productIds) throws EntityRetrievalException;
