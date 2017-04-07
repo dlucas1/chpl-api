@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Type;
 
 
@@ -127,6 +128,9 @@ public class CertifiedProductDetailsEntity {
     
     @Column(name = "product_name")
     private String productName;
+    
+    @Formula("concat(UPPER(product_name), UPPER(vendor_name))") 
+    private String productVendorName;
     
     @Basic( optional = true )
 	@OneToOne(optional = true, fetch = FetchType.LAZY)
