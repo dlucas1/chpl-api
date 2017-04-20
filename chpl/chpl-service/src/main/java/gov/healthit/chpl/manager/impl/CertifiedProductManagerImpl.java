@@ -1252,6 +1252,7 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 		
 		List<CertificationResultDTO> oldCertificationResults = certDao.findByCertifiedProductId(productDto.getId());
 		
+		Boolean updateCertificationResult = false;
 		for (CertificationResultDTO oldResult : oldCertificationResults){
 			CertificationCriterionDTO criterionDTO = certCriterionDao.getById(oldResult.getCertificationCriterionId());
 			
@@ -1510,7 +1511,10 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 						}
 					}
 					
-					certResultManager.update(acbId, oldResult);
+					if(updateCertificationResult){
+						certResultManager.update(acbId, oldResult);
+						updateCertificationResult = false;
+					}
 					break;
 				}
 			}
@@ -1662,6 +1666,26 @@ public class CertifiedProductManagerImpl implements CertifiedProductManager {
 				cqmResultDAO.delete(cqmResult.getId());
 			}
 		}
+	}
+	
+	private Boolean compareCertificationResultWithDTO(CertificationResult cr, CertificationResultDTO dto){
+		Boolean isMatching = false;
+		if(cr.isG1Success().equals(dto.getG1Success())){
+			isMatching = true;
+		} else if(cr.isG2Success().equals(dto.getG2Success())){
+			isMatching = true;
+		} else if(cr.isGap().equals(dto.getGap())){
+			isMatching = true;
+		} else if(cr.isSed().equals(dto.getSed())){
+			isMatching = true;
+		} else if(cr.isSuccess().equals(dto.getSuccessful())){
+			isMatching = true;
+		} else if(cr.getAdditionalSoftware().equals(dto.getAdditionalSoftware())){
+			isMatching = true;
+		}// else if(cr.getAllowedMacraMeasures().equals(dto.))
+		
+		
+		return isMatching;
 	}
 	
 	private Long findCqmCriterionId(CQMResultCriteriaDTO cqm) throws EntityRetrievalException {
